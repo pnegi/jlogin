@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service("userService")
 public class UserService {
@@ -33,11 +34,20 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Optional<List<User>> findAll() {
+        List<User> allUsers =  userRepository.findAll();
+        if(allUsers!=null && allUsers.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(allUsers);
     }
 
-    public List<User> findByActive() {
-        return userRepository.findByActive(true);
+    public Optional<List<User>> findByActive() {
+
+        List<User> activeUsers = userRepository.findByActive(true);
+         if(activeUsers!=null && activeUsers.isEmpty()){
+             return Optional.empty();
+         }
+         return Optional.of(activeUsers);
     }
 }
