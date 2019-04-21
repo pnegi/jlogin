@@ -45,6 +45,15 @@ public class UserService {
     public Optional<List<User>> findByActive() {
 
         List<User> activeUsers = userRepository.findByActive(true);
+
+        //Declare a List
+
+        //Iterate the List and create a map for each user and
+        // add the map to list in each iteration
+
+
+        //return the list of Map of String, string i.e. List<Map<String, String>> instead of list of Users
+
          if(activeUsers!=null && activeUsers.isEmpty()){
              return Optional.empty();
          }
