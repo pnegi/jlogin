@@ -16,7 +16,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/add") // Map ONLY GET Requests
-    public String addNewUser (@RequestParam String name, @RequestParam String email, @RequestParam String dob) {
+    public String addNewUser (@RequestParam String name, @RequestParam String email, @RequestParam String dob, @RequestParam Boolean active) {
         String str = dob;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateTime = LocalDate.parse(str, formatter);
@@ -24,6 +24,7 @@ public class UserController {
         n.setName(name);
         n.setEmail(email);
         n.setDob(dateTime);
+        n.setActive(active);
         userService.saveUser(n);
         return "Saved";
     }
@@ -34,4 +35,9 @@ public class UserController {
         return userService.findAll();
     }
 
+    @GetMapping("/active")
+    public Iterable<User> getActiveUsers() {
+        // This returns a JSON or XML with the active users
+        return userService.findByActive();
+    }
 }

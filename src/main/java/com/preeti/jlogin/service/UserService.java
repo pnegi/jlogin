@@ -36,4 +36,8 @@ public class UserService {
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
+    public List<User> findByActive() {
+        return userRepository.findByActive(true);
+    }
 }

@@ -28,6 +28,17 @@ public class User {
     @Column(name = "dob")
     private LocalDate dob;
 
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    @Column(name = "active")
+    private Boolean active;
+
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 //    private Set<Role> roles;
