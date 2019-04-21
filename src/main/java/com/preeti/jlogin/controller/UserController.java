@@ -14,8 +14,7 @@ public class UserController {
 
     @GetMapping("/add") // Map ONLY GET Requests
     public String addNewUser (@RequestParam String name, @RequestParam String email) {
-        // @RequestParam means it is a parameter from the GET or POST request
-
+        
         User n = new User();
         n.setName(name);
         n.setEmail(email);
