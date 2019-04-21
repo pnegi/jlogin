@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -23,6 +24,9 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "dob")
+    private LocalDate dob;
 
 //    @ManyToMany(cascade = CascadeType.ALL)
 //    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -50,5 +54,13 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getDob() {
+        return dob;
+    }
+
+    public void setDob(LocalDate dob) {
+        this.dob = dob;
     }
 }

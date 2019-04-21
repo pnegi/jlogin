@@ -5,6 +5,9 @@ import com.preeti.jlogin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -13,11 +16,14 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/add") // Map ONLY GET Requests
-    public String addNewUser (@RequestParam String name, @RequestParam String email) {
-        
+    public String addNewUser (@RequestParam String name, @RequestParam String email, @RequestParam String dob) {
+        String str = dob;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateTime = LocalDate.parse(str, formatter);
         User n = new User();
         n.setName(name);
         n.setEmail(email);
+        n.setDob(dateTime);
         userService.saveUser(n);
         return "Saved";
     }
