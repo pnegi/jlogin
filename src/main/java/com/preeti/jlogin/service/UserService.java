@@ -7,10 +7,7 @@ import com.preeti.jlogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service("userService")
 public class UserService {
@@ -27,11 +24,11 @@ public class UserService {
 //        return userRepository.findByEmail(email);
 //    }
 
-    public User saveUser(User user) {
+    public List<User> saveUser(List<User> users) {
 
 //        Role userRole = roleRepository.findByRole("ADMIN");
 //        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
-        return userRepository.save(user);
+        return userRepository.saveAll(users);
     }
 
     public Optional<List<User>> findAll() {
@@ -42,21 +39,40 @@ public class UserService {
         return Optional.of(allUsers);
     }
 
-    public Optional<List<User>> findByActive() {
+    public Optional<List<Map<String, String>>> findByActive() {
 
         List<User> activeUsers = userRepository.findByActive(true);
 
+        Collections.sort(activeUsers);
+
         //Declare a List
+        List<Map<String, String>> userNames = new ArrayList();
+
+        activeUsers.stream().forEach(usr -> {
+            HashMap<String, String> userName = new HashMap<>();
+            userName.put("name", usr.getName());
+            userName.put("email", usr.getEmail());
+            userNames.add(userName);
+        });
 
         //Iterate the List and create a map for each user and
+        //put name and email into the map
         // add the map to list in each iteration
-
+//        for (int i = 0; i < activeUsers.size(); i++) {
+//            User user = activeUsers.get(i);
+//
+//            HashMap<String, String> userName = new HashMap<>();
+//            userName.put("name", user.getName());
+//            userName.put("email", user.getEmail());
+//
+//            userNames.add(i, userName);
+//        }
 
         //return the list of Map of String, string i.e. List<Map<String, String>> instead of list of Users
 
-         if(activeUsers!=null && activeUsers.isEmpty()){
+         if(userNames!=null && userNames.isEmpty()){
              return Optional.empty();
          }
-         return Optional.of(activeUsers);
+         return Optional.of(userNames);
     }
 }

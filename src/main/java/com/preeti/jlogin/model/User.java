@@ -12,7 +12,17 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Comparable<User>{
+
+    public User(String email, String name, LocalDate dob, Boolean active) {
+        this.email = email;
+        this.name = name;
+        this.dob = dob;
+        this.active = active;
+    }
+
+    public User() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,5 +83,10 @@ public class User {
 
     public void setDob(LocalDate dob) {
         this.dob = dob;
+    }
+
+    @Override
+    public int compareTo(User o) {
+        return this.getDob().compareTo(o.getDob());
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -18,12 +19,11 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/save")
-    public ResponseEntity<User> saveUser(@RequestBody User newUser){
+    public ResponseEntity<List<User>> saveUser(@RequestBody List<User> newUsers){
 
+        List<User> users = userService.saveUser(newUsers);
 
-        User user = userService.saveUser(newUser);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(users);
     }
 
     @GetMapping("/all")
@@ -36,14 +36,14 @@ public class UserController {
     }
 
     @GetMapping("/active")
-    public ResponseEntity<List<User>> getActiveUsers() {
+    public ResponseEntity<List<Map<String, String>>> getActiveUsers() {
 
-        Optional<List<User>> options = userService.findByActive();
+        Optional<List<Map<String, String>>> options = userService.findByActive();
 
-        if (options.isPresent())
+        if (options.isPresent()){
             return ResponseEntity.status(HttpStatus.OK).body(options.get());
+        }
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
-
 }
