@@ -19,13 +19,29 @@ public class DataLoader implements ApplicationRunner {
     @Autowired
     private UserRepository userRepository;
 
+    // function to generate a random string of length n
+    static String getAlphaNumericString(int n)
+    {
+
+        String AlphaNumericString = "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+        return sb.toString();
+    }
+
     public void run(ApplicationArguments args) {
         LocalDate dob = LocalDate.of(1990, 01, 01);
 
         List<User> userList = new ArrayList<>();
 
         for (int i  =  0; i < 10; i++) {
-            User user = new User("mail"+i+"@gmail.com", "name"+i, dob.plusYears(i), i<5?true:false);
+            User user = new User(getAlphaNumericString(4)+"@gmail.com", getAlphaNumericString(4), dob.plusYears(i), i<5?true:false);
             userList.add(user);
         }
 

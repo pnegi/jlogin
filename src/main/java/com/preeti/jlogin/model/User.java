@@ -87,6 +87,10 @@ public class User implements Comparable<User>{
 
     @Override
     public int compareTo(User o) {
-        return this.getDob().compareTo(o.getDob());
+        int ncomp = this.getName().compareTo(o.getName());
+        if (ncomp!=0){
+            return ncomp;
+        }
+        return this.getEmail().compareTo(o.getEmail());
     }
 }
