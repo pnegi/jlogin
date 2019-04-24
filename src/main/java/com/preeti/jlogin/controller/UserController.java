@@ -16,7 +16,7 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @PostMapping("/save")
     public ResponseEntity<List<User>> saveUser(@RequestBody List<User> newUsers){

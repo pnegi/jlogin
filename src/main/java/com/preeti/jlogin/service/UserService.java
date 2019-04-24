@@ -1,6 +1,5 @@
 package com.preeti.jlogin.service;
 
-import com.preeti.jlogin.model.Role;
 import com.preeti.jlogin.model.User;
 import com.preeti.jlogin.repository.RoleRepository;
 import com.preeti.jlogin.repository.UserRepository;
@@ -43,7 +42,8 @@ public class UserService {
 
         List<User> activeUsers = userRepository.findByActive(true);
 
-        Collections.sort(activeUsers);
+        Collections.sort(activeUsers, Comparator.comparing(User::getName).thenComparing(User::getEmail));
+//       Collections.sort(activeUsers, (u1, u2) -> u1.getName().compareTo(u2.getName()));
 
         //Declare a List
         List<Map<String, String>> userNames = new ArrayList();

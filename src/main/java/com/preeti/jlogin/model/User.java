@@ -8,11 +8,12 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User implements Comparable<User>{
+public class User{
 
     public User(String email, String name, LocalDate dob, Boolean active) {
         this.email = email;
@@ -25,7 +26,7 @@ public class User implements Comparable<User>{
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private int id;
 
@@ -85,12 +86,5 @@ public class User implements Comparable<User>{
         this.dob = dob;
     }
 
-    @Override
-    public int compareTo(User o) {
-        int ncomp = this.getName().compareTo(o.getName());
-        if (ncomp!=0){
-            return ncomp;
-        }
-        return this.getEmail().compareTo(o.getEmail());
-    }
+
 }
