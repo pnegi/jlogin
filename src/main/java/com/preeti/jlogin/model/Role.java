@@ -1,11 +1,16 @@
 package com.preeti.jlogin.model;
 
+import lombok.Builder;
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@Builder
 @Entity
 @Table(name = "role")
-public class Role {
+public class Role{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,34 +23,5 @@ public class Role {
     @ManyToMany(mappedBy = "rolesForUser")
     Set<User> usersWithRole;
 
-    public Role(String name) {
-        this.name = name;
-    }
 
-    public Role() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<User> getUsersWithRole() {
-        return usersWithRole;
-    }
-
-    public void setUsersWithRole(Set<User> usersWithRole) {
-        this.usersWithRole = usersWithRole;
-    }
 }

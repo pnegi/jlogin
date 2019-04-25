@@ -28,7 +28,7 @@ public class DataLoader implements ApplicationRunner {
 
 
     public void run(ApplicationArguments args) {
-        List<Role> roles = Stream.of(new Role("ADMIN"), new Role("MANAGER"), new Role("DEVELOPER")).collect(Collectors.toList());
+        List<Role> roles = Stream.of(Role.builder().name("ADMIN").build(), Role.builder().name("MANAGER").build(), Role.builder().name("DEVELOPER").build()).collect(Collectors.toList());
         roleRepository.saveAll(roles);
 
         LocalDate dob = LocalDate.of(1990, 01, 01);

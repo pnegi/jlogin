@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("role")
@@ -34,8 +36,10 @@ public class RoleController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
-    @GetMapping("/getbyname/{roleName}")
-    public ResponseEntity<Role> getAllRoles(@PathVariable("roleName") String roleName) {
+    //accept list of string(name) as input param
+    //return list of Role obj
+    @GetMapping("/getbynames")
+    public ResponseEntity<Set<Role>> getAllRoles(List<String> names) {
         //make call to service
         return ResponseEntity.status(HttpStatus.OK).body(null);
     }
