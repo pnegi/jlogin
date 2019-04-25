@@ -1,6 +1,7 @@
 package com.preeti.jlogin.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "role")
@@ -11,8 +12,18 @@ public class Role {
     @Column(name = "role_id")
     private int id;
 
-    @Column(name = "role")
-    private String role;
+    @Column(name = "role_name")
+    private String name;
+
+    @ManyToMany(mappedBy = "rolesForUser")
+    Set<User> usersWithRole;
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+    }
 
     public int getId() {
         return id;
@@ -22,11 +33,19 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    public String getName() {
+        return name;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<User> getUsersWithRole() {
+        return usersWithRole;
+    }
+
+    public void setUsersWithRole(Set<User> usersWithRole) {
+        this.usersWithRole = usersWithRole;
     }
 }

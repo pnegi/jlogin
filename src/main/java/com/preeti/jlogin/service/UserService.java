@@ -1,5 +1,6 @@
 package com.preeti.jlogin.service;
 
+import com.preeti.jlogin.model.Role;
 import com.preeti.jlogin.model.User;
 import com.preeti.jlogin.repository.RoleRepository;
 import com.preeti.jlogin.repository.UserRepository;
@@ -55,24 +56,10 @@ public class UserService {
             userNames.add(userName);
         });
 
-        //Iterate the List and create a map for each user and
-        //put name and email into the map
-        // add the map to list in each iteration
-//        for (int i = 0; i < activeUsers.size(); i++) {
-//            User user = activeUsers.get(i);
-//
-//            HashMap<String, String> userName = new HashMap<>();
-//            userName.put("name", user.getName());
-//            userName.put("email", user.getEmail());
-//
-//            userNames.add(i, userName);
-//        }
-
-        //return the list of Map of String, string i.e. List<Map<String, String>> instead of list of Users
-
          if(userNames!=null && userNames.isEmpty()){
              return Optional.empty();
          }
          return Optional.of(userNames);
     }
+
 }

@@ -9,5 +9,4 @@ import java.util.List;
 @Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByActive(Boolean active);
-
 }

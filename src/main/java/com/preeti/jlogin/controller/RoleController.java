@@ -34,4 +34,10 @@ public class RoleController {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
+    @GetMapping("/getbyname/{roleName}")
+    public ResponseEntity<Role> getAllRoles(@PathVariable("roleName") String roleName) {
+        //make call to service
+        return ResponseEntity.status(HttpStatus.OK).body(null);
+    }
+
 }

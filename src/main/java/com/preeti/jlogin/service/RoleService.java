@@ -27,4 +27,10 @@ public class RoleService {
         return Optional.of(allRoles);
     }
 
+    public List<Role> getRoleByNames(List<String> names) {
+        List<Role> roles = roleRepository.findByNameIn(names);
+        return roles;
+
+    }
+
 }

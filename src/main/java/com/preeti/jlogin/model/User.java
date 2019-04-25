@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.Set;
 
 @Entity
@@ -39,6 +38,22 @@ public class User{
     @Column(name = "dob")
     private LocalDate dob;
 
+
+    @Column(name = "active")
+    private Boolean active;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="UserAndRoles",
+            joinColumns=@JoinColumn(name="user_id", referencedColumnName="user_id"),
+            inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="role_id"))
+    private Set<Role> rolesForUser;
+
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
+
+
     public Boolean getActive() {
         return active;
     }
@@ -46,13 +61,6 @@ public class User{
     public void setActive(Boolean active) {
         this.active = active;
     }
-
-    @Column(name = "active")
-    private Boolean active;
-
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
 
     public int getId() {
         return id;
@@ -86,5 +94,11 @@ public class User{
         this.dob = dob;
     }
 
+    public Set<Role> getRolesForUser() {
+        return rolesForUser;
+    }
 
+    public void setRolesForUser(Set<Role> rolesForUser) {
+        this.rolesForUser = rolesForUser;
+    }
 }

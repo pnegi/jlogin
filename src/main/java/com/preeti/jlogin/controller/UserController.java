@@ -18,12 +18,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/save")
-    public ResponseEntity<List<User>> saveUser(@RequestBody List<User> newUsers){
+    @PostMapping("/save/all")
+    public ResponseEntity<List<User>> saveUsers(@RequestBody List<User> newUsers){
 
         List<User> users = userService.saveUser(newUsers);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(users);
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity<User> saveUser(@RequestBody User newUsers){
+
+        User user = null;
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping("/all")
