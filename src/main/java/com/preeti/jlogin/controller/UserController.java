@@ -67,4 +67,13 @@ public class UserController {
         else
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
+
+    @GetMapping("/getbyrole")
+    public ResponseEntity<List<User>> getUsersByRole(@RequestParam("role") String role) {
+        List<User> options = userService.findByRolesForUserIn(role);
+        if (options!=null)
+            return ResponseEntity.status(HttpStatus.OK).body(options);
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
 }

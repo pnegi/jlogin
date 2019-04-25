@@ -5,9 +5,13 @@ import com.preeti.jlogin.model.User;
 import com.preeti.jlogin.repository.RoleRepository;
 import com.preeti.jlogin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service("userService")
 public class UserService {
@@ -17,6 +21,9 @@ public class UserService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private  RoleService roleService;
 
 
 
@@ -56,10 +63,16 @@ public class UserService {
             userNames.add(userName);
         });
 
-         if(userNames!=null && userNames.isEmpty()){
-             return Optional.empty();
-         }
-         return Optional.of(userNames);
+        if(userNames!=null && userNames.isEmpty()){
+            return Optional.empty();
+        }
+        return Optional.of(userNames);
+    }
+
+    public List<User> findByRolesForUserIn(String role) {
+        Optional<Set<Role>> option = roleService.getRoleByNames(Stream.of(role).collect(Collectors.toList()));
+        List<User> getUsersByRole = userRepository.findByRolesForUserIn(option.get());
+        return getUsersByRole;
     }
 
 }
