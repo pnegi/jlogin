@@ -1,5 +1,6 @@
 package com.preeti.jlogin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -42,17 +43,13 @@ public class User{
     @Column(name = "active")
     private Boolean active;
 
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="UserAndRoles",
             joinColumns=@JoinColumn(name="user_id", referencedColumnName="user_id"),
             inverseJoinColumns=@JoinColumn(name="role_id", referencedColumnName="role_id"))
     private Set<Role> rolesForUser;
-
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-//    private Set<Role> roles;
-
 
     public Boolean getActive() {
         return active;

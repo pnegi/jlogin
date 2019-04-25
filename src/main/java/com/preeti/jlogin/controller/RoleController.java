@@ -39,9 +39,13 @@ public class RoleController {
     //accept list of string(name) as input param
     //return list of Role obj
     @GetMapping("/getbynames")
-    public ResponseEntity<Set<Role>> getAllRoles(List<String> names) {
+    public ResponseEntity<Set<Role>> getRoleByName(@RequestParam("names") List<String> names) {
         //make call to service
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        Optional<Set<Role>> roles = roleService.getRoleByNames(names);
+        if (roles.isPresent())
+            return ResponseEntity.status(HttpStatus.OK).body(roles.get());
+        else
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
 }
